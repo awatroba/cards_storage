@@ -1,7 +1,6 @@
 package com.cardsStorage.model;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import java.sql.Date;
@@ -10,10 +9,13 @@ import java.sql.Date;
 public class CreditCard {
     @PrimaryKey(autoGenerate = true)
     private int id;
+    // TODO: dodać @ForeignKey() i wypisywać karty po userze
     // @ForeignKey()
 
     private int userId;
 
+    @ColumnInfo(name = "card_name")
+    private String name;
     @ColumnInfo(name = "card_number")
     private String number;
     @ColumnInfo(name = "card_date")
@@ -21,7 +23,8 @@ public class CreditCard {
     @ColumnInfo(name = "card_cvv")
     private int cvv;
 
-    public CreditCard(String number, Date date, int cvv) {
+    public CreditCard(String name,String number, Date date, int cvv) {
+        this.name=name;
         this.number = number;
         this.date = date;
         this.cvv = cvv;
@@ -33,6 +36,14 @@ public class CreditCard {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getNumber() {
