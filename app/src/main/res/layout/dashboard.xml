@@ -8,11 +8,21 @@
     android:padding="8dp"
     tools:context=".activities.DashboardActivity">
 
+    <Button
+        android:id="@+id/button"
+        android:layout_gravity="right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="addNewCard"
+        android:text="Add new card" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
-
     </androidx.recyclerview.widget.RecyclerView>
+
+
+
 </LinearLayout>

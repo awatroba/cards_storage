@@ -34,16 +34,10 @@ public class CardRecyclerViewAdapter  extends RecyclerView.Adapter<CardRecyclerV
     public void onBindViewHolder(@NonNull CardRecyclerViewAdapter.CardsViewHolder
                                              holder, int position) {
         CreditCard creditCard = creditCardList.get(position);
-        /*holder.exCvv.setText(creditCard.getCvv()+"");
-        holder.exDate.setText("exDate");
-        holder.exNumber.setText("exNumber");
-        holder.rowTxtName.setText("rowTxtName"); */
-
-         holder.exCvv.setText(creditCard.getCvv()+"");
+        holder.exCvv.setText(creditCard.getCvv()+"");
         holder.exDate.setText(creditCard.getDate().toString());
         holder.exNumber.setText(creditCard.getNumber());
         holder.rowTxtName.setText(creditCard.getName());
-
 
         boolean isExpandable=creditCard.isExpandable();
         holder.expandableLayout.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
@@ -83,8 +77,6 @@ public class CardRecyclerViewAdapter  extends RecyclerView.Adapter<CardRecyclerV
                     CreditCard creditCard = creditCardList.get(getAdapterPosition());
                     creditCard.setExpandable(!creditCard.isExpandable());
                     notifyItemChanged(getAdapterPosition());
-
-
                 }
             });
         }
