@@ -22,12 +22,15 @@ public class CreditCard {
     private Date date;
     @ColumnInfo(name = "card_cvv")
     private int cvv;
+    // State of the item
+    private boolean expandable;
 
     public CreditCard(String name,String number, Date date, int cvv) {
         this.name=name;
         this.number = number;
         this.date = date;
         this.cvv = cvv;
+        this.expandable =false;
     }
 
     public int getId() {
@@ -68,5 +71,25 @@ public class CreditCard {
 
     public void setCvv(int cvv) {
         this.cvv = cvv;
+    }
+
+    public boolean isExpandable() {
+        return expandable;
+    }
+
+    public void setExpandable(boolean expandable) {
+        this.expandable = expandable;
+    }
+
+    @Override
+    public String toString() {
+        return "CreditCard{" +
+                "userId=" + userId +
+                ", name='" + name + '\'' +
+                ", number='" + number + '\'' +
+                ", date=" + date +
+                ", cvv=" + cvv +
+                ", expanded=" + expandable +
+                '}';
     }
 }
