@@ -4,7 +4,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.cardsStorage.R;
 import com.cardsStorage.helpers.CardRecyclerViewAdapter;
@@ -31,7 +33,6 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void initData() {
         creditCards = new ArrayList<>();
-
         // TODO: pobierać karty po id usera
         creditCards.add(new CreditCard("Karta1", "12", new Date(500, 3, 3), 12));
         creditCards.add(new CreditCard("Karta2", "22", new Date(346, 3, 3), 122));
@@ -42,5 +43,10 @@ public class DashboardActivity extends AppCompatActivity {
         CardRecyclerViewAdapter recyclerViewAdapter = new CardRecyclerViewAdapter(creditCards);
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.setHasFixedSize(true);
+    }
+
+    public void addNewCard(View view) {
+        Intent intent = new Intent(getApplicationContext(), AddCardActivity.class);
+        startActivity(intent);
     }
 }
