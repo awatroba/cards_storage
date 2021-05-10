@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void moveToDashboardActivity(){
         Intent intent= new Intent(LoginActivity.this,DashboardActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
     private void moveToRegistrationActivity(){
