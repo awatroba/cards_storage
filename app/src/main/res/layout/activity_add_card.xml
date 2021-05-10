@@ -38,6 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="CVV"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="100dp" />
     <EditText
         android:id="@+id/newCardCVVTxt"
@@ -50,6 +51,7 @@
         android:layout_height="wrap_content"
         android:text="Date"
         android:ems="10"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="100dp" />
     <EditText
         android:id="@+id/newCardDateTxt"
@@ -58,14 +60,14 @@
         android:layout_marginLeft="100dp"
         android:ems="10" />
     <Button
-        android:id="@+id/createAccount"
+        android:id="@+id/createNewCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="100dp"
         android:layout_marginRight="100dp"
-        android:text="Add "
+        android:text="Add"
         android:layout_gravity="right"
-        android:onClick="registration"/>
+        android:onClick="addNewCard"/>
 
     <TextView android:id="@+id/lnkAddCancel"
         android:layout_width="match_parent"
