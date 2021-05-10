@@ -1,36 +1,49 @@
 package com.cardsStorage.model;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-import java.sql.Date;
-
-@Entity
+import static androidx.room.ForeignKey.CASCADE;
+@Entity(foreignKeys = @ForeignKey(entity = User.class,
+        parentColumns = "id",
+        childColumns = "userId",
+        onDelete = CASCADE))
 public class CreditCard {
     @PrimaryKey(autoGenerate = true)
     private int id;
-    // TODO: dodać @ForeignKey() i wypisywać karty po userze
-    // @ForeignKey()
-
+    @ColumnInfo(name = "userId")
     private int userId;
 
     @ColumnInfo(name = "card_name")
     private String name;
+
     @ColumnInfo(name = "card_number")
     private String number;
+
     @ColumnInfo(name = "card_date")
-    private Date date;
+    private String date;
+
     @ColumnInfo(name = "card_cvv")
     private int cvv;
+
     // State of the item
     private boolean expandable;
 
-    public CreditCard(String name,String number, Date date, int cvv) {
+    public CreditCard() {
+    }
+
+    public CreditCard(int userId, String name, String number, String date, int cvv) {
+        this.userId=userId;
         this.name=name;
         this.number = number;
         this.date = date;
         this.cvv = cvv;
         this.expandable =false;
+    }
+
+    public int getUserId() {
+        return userId;
     }
 
     public int getId() {
@@ -57,11 +70,11 @@ public class CreditCard {
         this.number = number;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -79,6 +92,10 @@ public class CreditCard {
 
     public void setExpandable(boolean expandable) {
         this.expandable = expandable;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     @Override

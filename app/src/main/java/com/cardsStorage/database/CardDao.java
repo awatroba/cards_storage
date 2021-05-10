@@ -11,17 +11,17 @@ import java.util.List;
 
 @Dao
 public interface CardDao {
-    @Query("SELECT * FROM creditCard")
-    List<User> getAll();
+    @Query("SELECT * FROM creditCard where userId LIKE :userId")
+    List<CreditCard> getAll(int userId);
 
     @Query("SELECT * FROM creditCard WHERE id IN (:cardId)")
-    List<User> loadAllById(int[] cardId);
+    List<CreditCard> loadAllById(int[] cardId);
 
     @Query("SELECT * FROM creditCard WHERE card_number LIKE :number  LIMIT 1")
-    User findByNumber(String number);
+    CreditCard findByNumber(String number);
 
     @Query("SELECT * FROM creditCard WHERE card_cvv LIKE :cvv  LIMIT 1")
-    User findByCVV(String cvv);
+    CreditCard findByCVV(String cvv);
 
     @Insert
     void insertAll(CreditCard... creditCards);
