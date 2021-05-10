@@ -6,13 +6,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
+import android.widget.TextView;
 
 import com.cardsStorage.R;
 import com.cardsStorage.helpers.CardRecyclerViewAdapter;
+import com.cardsStorage.helpers.SessionManagement;
 import com.cardsStorage.model.CreditCard;
 
-import java.sql.Date;
 import java.util.ArrayList;
 
 public class DashboardActivity extends AppCompatActivity {
@@ -23,11 +25,25 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard);
-
+        TextView logout = (TextView)findViewById(R.id.lnkLogout);
+        logout.setMovementMethod(LinkMovementMethod.getInstance());
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+            }
+        });
         recyclerView = findViewById(R.id.recyclerView);
 
         initData();
         setRecyclerView();
+
+    }
+
+    private void logout() {
+        SessionManagement sessionManagement=new SessionManagement(this);
+        sessionManagement.removeSession();
+        moveToLoginActivity();
 
     }
 
@@ -46,7 +62,16 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public void addNewCardActRun(View view) {
-        Intent intent = new Intent(getApplicationContext(), AddCardActivity.class);
+        moveToAddCardActivity();
+    }
+    private void moveToAddCardActivity(){
+        Intent intent= new Intent(this,AddCardActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+    private void moveToLoginActivity(){
+        Intent intent= new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 }

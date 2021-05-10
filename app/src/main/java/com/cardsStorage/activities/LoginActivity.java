@@ -9,13 +9,13 @@ import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cardsStorage.R;
 import com.cardsStorage.database.DatabaseClient;
+import com.cardsStorage.helpers.SessionManagement;
 import com.cardsStorage.model.User;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     private final static String LOGIN_ERROR = "Password incorrect!";
 
     EditText login;
@@ -30,14 +30,32 @@ public class MainActivity extends AppCompatActivity {
         login = (EditText)findViewById(R.id.txtLogin);
         password = (EditText)findViewById(R.id.txtPwd);
 
-
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), RegistrationActivity.class);
-                startActivity(intent);
+                moveToRegistrationActivity();
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        checkSession();
+    }
+
+    private void checkSession(){
+        SessionManagement sessionManagement=new SessionManagement(this);
+        int userId = sessionManagement.getSession();
+        //check if user if logged in
+        if(userId != -1){
+            //if user is logged in-> move to dashboardActivity
+            moveToDashboardActivity();
+        }
+    }
+    private void saveUserInSession(User user){
+        SessionManagement sessionManagement=new SessionManagement(this);
+        sessionManagement.saveSession(user);
     }
     public void login(View view){
         final String loginTxt = login.getText().toString().trim();
@@ -51,10 +69,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(User result) {
                 if (result!=null && result.getPassword().equals(passTxt)){
-                    //close this Activity
-                    finish();
-                    startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
-                    Toast.makeText(getApplicationContext(), "Successful", Toast.LENGTH_LONG).show();
+                    saveUserInSession(result);
+
+                    moveToDashboardActivity();
                 }else {
                     password.setError(LOGIN_ERROR);
                     password.requestFocus();
@@ -62,6 +79,16 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         new LoginUser().execute();
+    }
+    private void moveToDashboardActivity(){
+        Intent intent= new Intent(LoginActivity.this,DashboardActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+    private void moveToRegistrationActivity(){
+        Intent intent= new Intent(LoginActivity.this,RegistrationActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
 }

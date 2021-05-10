@@ -99,11 +99,7 @@ public class AddCardActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Boolean result) {
                 if (result){
-                    //close RegistrationActivity
-                    finish();
-
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
+                    moveToDashboardActivity();
                 }else {
                 }
             }
@@ -111,5 +107,9 @@ public class AddCardActivity extends AppCompatActivity {
         SaveCard saveCard = new SaveCard();
         saveCard.execute();
     }
-
+    private void moveToDashboardActivity(){
+        Intent intent= new Intent(this,DashboardActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
 }

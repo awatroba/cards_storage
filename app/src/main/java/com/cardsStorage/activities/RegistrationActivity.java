@@ -7,7 +7,6 @@ import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -48,8 +47,7 @@ public class RegistrationActivity extends AppCompatActivity {
         loginLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+                moveToLoginActivity();
             }
         });
     }
@@ -60,6 +58,11 @@ public class RegistrationActivity extends AppCompatActivity {
                 saveAccount();
                 break;
         }
+    }
+    private void moveToLoginActivity(){
+        Intent intent= new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
     private void addUser(String login, String pass){
         class SaveUser extends AsyncTask<Void, Void, Boolean> {
@@ -81,11 +84,7 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Boolean result) {
                 if (result){
-                    //close RegistrationActivity
-                    finish();
-
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
+                    moveToLoginActivity();
                 }else {
                     loginEditText.setError(LOGIN_UNAVAILABLE_ERROR);
                     loginEditText.requestFocus();
